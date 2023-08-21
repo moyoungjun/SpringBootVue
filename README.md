@@ -2,7 +2,7 @@
 SpringBoot + Vue.js
 
 Entity
- -Board
+  -Board
 
  Method
   - Get (전체 조회, 상세 조회)
