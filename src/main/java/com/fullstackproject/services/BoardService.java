@@ -6,6 +6,10 @@ import com.fullstackproject.dtos.responses.BoardResponse;
 import com.fullstackproject.entity.Board;
 import com.fullstackproject.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,10 +20,11 @@ public class BoardService {
 
     private final BoardRepository boardRepository;
 
-    public List<BoardResponse> boardAll() {
-        List<Board> boardList = boardRepository.findAll();
-        return boardList.stream().
-                map(board -> new BoardResponse().toBoardResponse(board)).toList();
+    public Page<BoardResponse> boardAll(Pageable pageable) {
+        Page<Board> boardList = boardRepository.findAll(pageable);
+        /*return new PageImpl<>(boardList.stream().
+                map(board -> new BoardResponse().toBoardResponse(board)).toList());*/
+        return boardList.map(BoardResponse::new);
     }
 
     public BoardResponse boardDetail(Long idx) {

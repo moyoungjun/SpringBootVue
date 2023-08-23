@@ -3,11 +3,13 @@ package com.fullstackproject.controller;
 import com.fullstackproject.dtos.requests.BoardPostRequests;
 import com.fullstackproject.dtos.requests.BoardUpdateRequests;
 import com.fullstackproject.dtos.responses.BoardResponse;
+import com.fullstackproject.entity.Board;
 import com.fullstackproject.services.BoardService;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @AllArgsConstructor
@@ -17,8 +19,8 @@ public class BoardController {
     private final BoardService boardService;
 
     @GetMapping("/list")
-    public List<BoardResponse> boardAll() {
-        return boardService.boardAll();
+    public Page<BoardResponse> boardAll(Pageable pageable) {
+        return boardService.boardAll(pageable);
     }
 
     @GetMapping("/{idx}")
